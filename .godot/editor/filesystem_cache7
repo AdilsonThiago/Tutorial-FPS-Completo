@@ -1,0 +1,9 @@
+102b54792f6b2ef812636a2bdaeb9d34
+::res://::1649889170
+icon.png::StreamTexture2D::1137542383157297388::1645543675::1645543691::1::::<><>::
+::res://data/::1649879478
+::res://data/fases/::1649874826
+fase01.tscn::PackedScene::6902102812027949757::1649874826::0::1::::<><>::uid://0r6nf152jw37
+::res://data/personagem/::1649881152
+Personagem.gd::GDScript::-1::1649874881::0::1::::<>CharacterBody3D<>::
+Personagem.tscn::PackedScene::1791721259047539304::1649881152::0::1::::<><>::res://data/personagem/Personagem.gd

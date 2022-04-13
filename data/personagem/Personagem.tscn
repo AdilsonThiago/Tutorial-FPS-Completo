@@ -1,0 +1,151 @@
+[gd_scene load_steps=13 format=3 uid="uid://0r6nf152jw37"]
+
+[ext_resource type="Script" path="res://data/personagem/Personagem.gd" id="1_p5e4s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v0tdu"]
+radius = 0.75
+height = 4.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_8kimh"]
+size = Vector3(0.25, 0.25, 1)
+
+[sub_resource type="Animation" id="Animation_0ittm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/arma:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.564177, -0.464989, -1.24883)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/arma:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.104039, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1o201"]
+resource_name = "andando"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/arma:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.564177, -0.464989, -1.24883), Vector3(0.564177, -0.640618, -1.24883)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/arma:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.104039, 0), Vector3(-0.168992, 0.329587, -0.0574679)]
+}
+
+[sub_resource type="Animation" id="Animation_ieb6s"]
+resource_name = "parado"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/arma:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.564177, -0.464989, -1.24883), Vector3(0.564177, -0.514924, -1.24883)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/arma:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.104039, 0), Vector3(-0.038843, 0.196133, -0.00771552)]
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c2fak"]
+animation = &"andando"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_adagv"]
+animation = &"parado"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5gsvk"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u7e8q"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pr6pn"]
+states/andando/node = SubResource( "AnimationNodeAnimation_c2fak" )
+states/andando/position = Vector2(601.333, 78.8889)
+states/parado/node = SubResource( "AnimationNodeAnimation_adagv" )
+states/parado/position = Vector2(356, 78)
+transitions = [&"parado", &"andando", SubResource( "AnimationNodeStateMachineTransition_5gsvk" ), &"andando", &"parado", SubResource( "AnimationNodeStateMachineTransition_u7e8q" )]
+start_node = "parado"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_7pxij"]
+
+[node name="Personagem" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.32467, 2.23659, 0)
+script = ExtResource( "1_p5e4s" )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource( "CapsuleShape3D_v0tdu" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17433, 0)
+
+[node name="arma" type="Node3D" parent="Camera3D"]
+transform = Transform3D(0.994593, 0, 0.103851, 0, 1, 0, -0.103851, 0, 0.994593, 0.564177, -0.464989, -1.24883)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/arma"]
+mesh = SubResource( "BoxMesh_8kimh" )
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Camera3D/arma"]
+transform = Transform3D(0.5, 0, 0, 0, -0.152848, -0.476065, 0, 0.476065, -0.152848, 0, -0.35956, -0.0165902)
+mesh = SubResource( "BoxMesh_8kimh" )
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Camera3D/arma"]
+transform = Transform3D(0.5, 0, 0, 0, 0.164664, -0.472108, 0, 0.472108, 0.164664, 0, -0.35956, 0.367363)
+mesh = SubResource( "BoxMesh_8kimh" )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( "Animation_0ittm" )
+anims/andando = SubResource( "Animation_1o201" )
+anims/parado = SubResource( "Animation_ieb6s" )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( "AnimationNodeStateMachine_pr6pn" )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( "AnimationNodeStateMachinePlayback_7pxij" )
